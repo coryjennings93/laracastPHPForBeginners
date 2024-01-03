@@ -1,0 +1,32 @@
+<?php
+
+namespace Core;
+
+class ValidationException extends \Exception
+{
+    // will be able to do this in PHP 8.1 +
+    // public readonly array $errors;
+    // public readonly array $old;
+    protected $errors;
+    protected $old;
+
+    public static function throw($errors, $old)
+    {
+        $instance = new static;
+
+        $instance->errors = $errors;
+        $instance->old = $old;
+
+        throw $instance;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    public function getOld()
+    {
+        return $this->old;
+    }
+}
